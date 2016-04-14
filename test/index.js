@@ -13,7 +13,12 @@ describe("camelcaseKeysDeep", function() {
     var json = {unicorn_rainbow: {foo_bar: 1, fooBar: 2}};
     expect(function() {
       camelcaseKeysDeep(json);
-    }).to.throw;
+    }).to.throw();
+
+    json = {foo: 1}
+    expect(function() {
+      camelcaseKeysDeep(json);
+    }).to.not.throw();
   });
 
 });
