@@ -1,0 +1,46 @@
+{
+  "name": "camelcase-keys-deep",
+  "version": "0.0.1",
+  "description": "Deeply convert the keys of an object to camelCase",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": "rxaviers/camelcase-keys-deep",
+  "keywords": [
+    "map",
+    "obj",
+    "object",
+    "key",
+    "keys",
+    "value",
+    "values",
+    "val",
+    "camelcase",
+    "camel-case",
+    "case",
+    "dash",
+    "hyphen",
+    "dot",
+    "underscore",
+    "separator",
+    "string",
+    "text",
+    "convert",
+    "deep",
+    "recursive"
+  ],
+  "author": "Rafael Xavier de Souza <rxaviers@gmail.com>",
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "camelcase": "^2.1.1",
+    "map-obj": "^1.0.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  }
+}
