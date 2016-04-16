@@ -1,6 +1,6 @@
 {
   "name": "camelcase-keys-deep",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Deeply convert the keys of an object to camelCase",
   "main": "index.js",
   "scripts": {
