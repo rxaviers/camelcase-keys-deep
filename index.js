@@ -1,31 +1,47 @@
-var camelcase = require("camelcase");
-var mapObj = require("map-obj");
+var camelCase = require("lodash.camelcase");
 
-module.exports = function camelcaseKeysDeep(obj) {
-  // Any falsy, which includes `null` whose typeof is `object`.
+module.exports = function deepObjectPropertiesToCamelCase(obj) {
+  // 1. Ignore falsy, which includes `null` whose typeof is `object`.
   if (!obj) {
-    return obj;
+    return obj
   }
-  // Date, whose typeof is `object` too.
+
+  // 2. Ignore Date (whose typeof is `object` too)
   if (obj instanceof Date) {
-    return obj;
+    return obj
   }
-  // Array, whose typeof is `object` too.
+
+  // 3. Array (whose typeof is `object` too), recursive call to each item
   if (Array.isArray(obj)) {
-    return obj.map(function(element) {
-      return camelcaseKeysDeep(element);
-    });
+    return obj.map((element) => deepObjectPropertiesToCamelCase(element))
   }
-  // So, if this is still an `object`, we might be interested in it.
-  if (typeof obj === "object") {
-    return mapObj(obj, function(key, value) {
-      var newKey = camelcase(key);
-      if (key !== newKey && newKey in obj) {
-        throw new Error("Camelcased key `" + newKey + "` would overwrite existing key of the given JSON object");
+
+  // 4. Object which need to be parsed
+  if (typeof obj === 'object') {
+    return Object.entries(obj).reduce((acc, [
+      key,
+      value,
+    ]) => {
+      const camelCasedKey = camelCase(key)
+
+      // Make sure to not overwrite the camel case version of the property, if it does exist
+      // e.g. { fooBar: "I want to be parsed", FooBar: "Don't overwrite me please" }
+      if (key !== camelCasedKey && camelCasedKey in obj) {
+        throw new Error(
+          `Camelcased key \`${camelCasedKey
+          }\` would overwrite existing key of the given JSON object`,
+        )
       }
-      return [newKey, camelcaseKeysDeep(value)];
-    });
+
+      const updatedAcc = {
+        ...acc,
+        [camelCasedKey]: deepObjectPropertiesToCamelCase(value),
+      }
+
+      return updatedAcc
+    }, {})
   }
-  // Something else like a String or Number.
-  return obj;
+
+  // 5. Any other cases (e.g. String or Number)
+  return obj
 }

@@ -1,6 +1,6 @@
 {
   "name": "camelcase-keys-deep",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Deeply convert the keys of an object to camelCase",
   "main": "index.js",
   "scripts": {
@@ -36,8 +36,7 @@
     "index.js"
   ],
   "dependencies": {
-    "camelcase": "^2.1.1",
-    "map-obj": "^1.0.1"
+    "lodash.camelcase": "^4.3.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
